@@ -1,0 +1,7 @@
+---
+- name: print variables found in the inventory
+  hosts: all
+  tasks:
+    - name: display the hosts environment according to the inventory
+      debug:
+        msg: "This host is in the {{ environment }}"
