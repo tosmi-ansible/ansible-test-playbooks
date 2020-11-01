@@ -1,7 +1,7 @@
 ---
 - name: create terraform user
   user:
-    name: {{ terraform.user }}
+    name: "{{ terraform.user }}"
     create_home: yes
     home: /home/terraform
     state: present
@@ -10,6 +10,6 @@
   become: yes
   become_user: terraform
   git:
-    repo: '{{ terraform.repo }}'
+    repo: "{{ terraform.repo }}"
     version: master
     update: yes
