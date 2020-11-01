@@ -17,3 +17,6 @@
     dest: "{{ terraform.dir }}"
 
 - include_tasks: terraform.yml
+
+- include_tasks: terraform_plan.yml
+  when: terraform.plan | bool

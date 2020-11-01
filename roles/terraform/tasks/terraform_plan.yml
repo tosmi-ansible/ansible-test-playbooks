@@ -1,0 +1,6 @@
+- name: run terraform plan
+  become: yes
+  become_user: "{{ terraform.user }}"
+  command: /usr/local/bin/terraform plan
+  args:
+    chdir: "{{ terraform.dir }}"
