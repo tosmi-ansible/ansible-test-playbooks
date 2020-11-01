@@ -15,3 +15,5 @@
     repo: "{{ terraform.repo }}"
     update: yes
     dest: "{{ terraform.dir }}"
+
+- include_tasks: terraform.yml
