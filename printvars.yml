@@ -5,6 +5,6 @@
     - name: Ping the host for testing
       ping:
 
-    - name: display the hosts environment according to the inventory
+    - name: Display host group names
       debug:
-        msg: "This host is in the {{ environment }} environment"
+        msg: "This host is in the following groups:  {{ group_names }}"
