@@ -16,7 +16,11 @@
     update: yes
     dest: "{{ terraform.dir }}"
 
-- include_tasks: terraform.yml
+- name: Include terraform setup tasks
+  include_tasks: terraform.yml
 
-- include_tasks: terraform_plan.yml
+- debug: var=terraform.plan
+
+- name: Include terrafor plan tasks
+  include_tasks: terraform_plan.yml
   when: terraform.plan | bool
