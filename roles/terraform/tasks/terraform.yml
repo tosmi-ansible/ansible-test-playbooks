@@ -17,4 +17,4 @@
   community.general.terraform:
     project_path: '{{ terraform.dir }}'
     binary_path: /usr/local/bin/terraform
-    state: "{{ terraform.state | default('present') }}"
+    state: "{{ terraform_state | default('present') }}"
