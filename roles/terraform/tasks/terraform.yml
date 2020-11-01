@@ -1,6 +1,6 @@
 - name: run terraform init if terraform folder is missing
   become: yes
   become_user: "{{ terraform.user }}"
-  command: terraform init
+  command: /usr/local/bin/terraform init
   args:
     creates: "{{ terraform.dir }}/.terraform"
