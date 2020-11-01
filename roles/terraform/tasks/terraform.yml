@@ -5,3 +5,16 @@
   args:
     chdir: "{{ terraform.dir }}"
     creates: "{{ terraform.dir }}/.terraform"
+
+- name: Deploy environment
+  become: yes
+  become_user: "{{ terraform.user }}"
+  environment:
+    ARM_CLIENT_SECRET: "{{ azure.client_secret }}"
+    ARM_CLIENT_ID: "{{ azure.client_id }}"
+    ARM_TENANT_ID: "{{ azure.tenant_id }}"
+    ARM_SUBSCRIPTION_ID: "{{ azure.subscription_id }}"
+  community.general.terraform:
+    project_path: '{{ terraform.dir }}'
+    binary_path: /usr/local/bin/terraform
+    state: present

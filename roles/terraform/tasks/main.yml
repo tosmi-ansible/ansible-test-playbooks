@@ -19,10 +19,14 @@
 - name: Include terraform setup tasks
   include_tasks: terraform.yml
 
-- name: Include terraform plan tasks
-  include_tasks: terraform_plan.yml
-  when: plan | bool
+# no longer used
+# community.general.terraform in terraform.yml does this for us, it
+# always runs plan and apply.
+#
+# - name: Include terraform plan tasks
+#   include_tasks: terraform_plan.yml
+#   when: plan | bool
 
-- name: Include terraform apply tasks
-  include_tasks: terraform_apply.yml
-  when: apply | bool
+# - name: Include terraform apply tasks
+#   include_tasks: terraform_apply.yml
+#   when: apply | bool
