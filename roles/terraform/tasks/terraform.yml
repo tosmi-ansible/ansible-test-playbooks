@@ -3,4 +3,5 @@
   become_user: "{{ terraform.user }}"
   command: /usr/local/bin/terraform init
   args:
+    chdir: "{{ terraform.dir }}"
     creates: "{{ terraform.dir }}/.terraform"
