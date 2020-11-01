@@ -1,5 +1,7 @@
 ---
 terraform:
   user: terraform
+  home: /home/terraform
+  dir: /home/terraform/tf
   repo: https://github.com/tosmi/terraform-test
   version: 0.13.5

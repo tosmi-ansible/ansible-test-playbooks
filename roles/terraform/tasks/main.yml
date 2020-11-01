@@ -5,13 +5,13 @@
   user:
     name: "{{ terraform.user }}"
     create_home: yes
-    home: /home/terraform
+    home: "{{ terraform.home }}"
     state: present
 
 - name: clone the given terraform repo
   become: yes
-  become_user: terraform
+  become_user: "{{ terraform.user }}"
   git:
     repo: "{{ terraform.repo }}"
     update: yes
-    dest: /home/terraform/tf
+    dest: "{{ terraform.dir }}"

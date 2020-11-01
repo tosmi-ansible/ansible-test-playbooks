@@ -1,0 +1,5 @@
+- name: run terraform init if terraform folder is missing
+  become: yes
+  become_user: "{{ terraform.user }}"
+  command: terraform init
+  creates: {{ terraform.dir }}/.terraform
