@@ -2,6 +2,9 @@
 - name: print variables found in the inventory
   hosts: all
   tasks:
+    - name: Ping the host for testing
+      ping:
+
     - name: display the hosts environment according to the inventory
       debug:
-        msg: "This host is in the {{ environment }}"
+        msg: "This host is in the {{ environment }} environment"
