@@ -1,11 +1,23 @@
-- name: run terraform apply
+# - name: run terraform apply
+#   become: yes
+#   become_user: "{{ terraform.user }}"
+#   command: /usr/local/bin/terraform apply -auto-approve
+#   args:
+#     chdir: "{{ terraform.dir }}"
+#   environment:
+#     ARM_CLIENT_SECRET: "{{ azure.client_secret }}"
+#     ARM_CLIENT_ID: "{{ azure.client_id }}"
+#     ARM_TENANT_ID: "{{ azure.tenant_id }}"
+#     ARM_SUBSCRIPTION_ID: "{{ azure.subscription_id }}"
+
+- name: Deploy environment
   become: yes
   become_user: "{{ terraform.user }}"
-  command: /usr/local/bin/terraform apply -auto-approve
-  args:
-    chdir: "{{ terraform.dir }}"
   environment:
     ARM_CLIENT_SECRET: "{{ azure.client_secret }}"
     ARM_CLIENT_ID: "{{ azure.client_id }}"
     ARM_TENANT_ID: "{{ azure.tenant_id }}"
     ARM_SUBSCRIPTION_ID: "{{ azure.subscription_id }}"
+  community.general.terraform:
+    project_path: '{{ terraform.dir }}'
+    state: present
