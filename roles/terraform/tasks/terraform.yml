@@ -2,4 +2,5 @@
   become: yes
   become_user: "{{ terraform.user }}"
   command: terraform init
-  creates: {{ terraform.dir }}/.terraform
+  args:
+    creates: "{{ terraform.dir }}/.terraform"
