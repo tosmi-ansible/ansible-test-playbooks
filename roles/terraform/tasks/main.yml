@@ -11,6 +11,5 @@
   become_user: terraform
   git:
     repo: "{{ terraform.repo }}"
-    version: master
     update: yes
     dest: /home/terraform/tf
