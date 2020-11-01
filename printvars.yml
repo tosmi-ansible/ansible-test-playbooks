@@ -1,5 +1,5 @@
 ---
-- name: print variables found in the inventory
+- name: This playbook configures hosts created with terraform
   hosts: all
   tasks:
     - name: Ping the host for testing
