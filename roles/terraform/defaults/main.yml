@@ -1,0 +1,4 @@
+---
+terraform:
+  user: terraform
+  repo: https://github.com/tosmi/terraform-test
