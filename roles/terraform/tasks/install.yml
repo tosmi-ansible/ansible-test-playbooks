@@ -1,0 +1,5 @@
+- name: Download the terraform zip
+  unarchive:
+    src: https://releases.hashicorp.com/terraform/{{ terraform.version }}/terraform_{{ terraform.version }}_linux_amd64.zip
+    remote_src: yes
+    dest: /usr/local/bin

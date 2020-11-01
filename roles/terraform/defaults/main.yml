@@ -2,3 +2,4 @@
 terraform:
   user: terraform
   repo: https://github.com/tosmi/terraform-test
+  version: 0.13.5

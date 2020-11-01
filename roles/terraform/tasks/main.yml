@@ -1,4 +1,6 @@
 ---
+- include_tasks: install.yml
+
 - name: create terraform user
   user:
     name: "{{ terraform.user }}"
