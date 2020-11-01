@@ -20,7 +20,8 @@
   include_tasks: terraform.yml
 
 - debug: var=terraform.plan
+- debug: var=plan
 
 - name: Include terrafor plan tasks
   include_tasks: terraform_plan.yml
-  when: terraform.plan | bool
+  when: plan | bool
