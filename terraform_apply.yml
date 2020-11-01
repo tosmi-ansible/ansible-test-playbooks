@@ -1,0 +1,4 @@
+- name: Setup and run terraform
+  hosts: all
+  roles:
+    - {role: terraform, apply: true }

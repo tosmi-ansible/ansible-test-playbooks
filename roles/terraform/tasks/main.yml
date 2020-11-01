@@ -19,9 +19,10 @@
 - name: Include terraform setup tasks
   include_tasks: terraform.yml
 
-- debug: var=terraform.plan
-- debug: var=plan
-
-- name: Include terrafor plan tasks
+- name: Include terraform plan tasks
   include_tasks: terraform_plan.yml
   when: plan | bool
+
+- name: Include terraform apply tasks
+  include_tasks: terraform_apply.yml
+  when: apply | bool
