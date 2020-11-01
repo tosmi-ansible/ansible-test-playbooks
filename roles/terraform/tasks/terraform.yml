@@ -6,7 +6,7 @@
     chdir: "{{ terraform.dir }}"
     creates: "{{ terraform.dir }}/.terraform"
 
-- name: Deploy environment
+- name: Manage environment with terraform
   become: yes
   become_user: "{{ terraform.user }}"
   environment:
