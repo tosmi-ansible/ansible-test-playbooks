@@ -20,4 +20,5 @@
     ARM_SUBSCRIPTION_ID: "{{ azure.subscription_id }}"
   community.general.terraform:
     project_path: '{{ terraform.dir }}'
+    binary_path: /usr/local/bin
     state: present
