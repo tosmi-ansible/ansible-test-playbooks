@@ -1,9 +1,13 @@
 ---
 - name: This playbook configures hosts created with terraform
-  hosts: all
+  hosts: localhost
   tasks:
     - name: Ping the host for testing
       ping:
+
+    - name: Display encrypted variable value
+      debug:
+        msg: "encrypted_var has a value of '{{ encrypted_var }}'"
 
     - name: Display host group names
       debug:
