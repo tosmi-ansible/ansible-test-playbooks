@@ -1,0 +1,5 @@
+---
+# tasks file for printvar
+- name: Print message from collection
+  debug:
+    msg: "A message from the collection"
