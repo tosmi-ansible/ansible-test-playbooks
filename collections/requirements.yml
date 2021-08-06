@@ -4,6 +4,9 @@ collections:
 - name: ansible.tower
   version: 3.8.3
   source: https://console.redhat.com/api/automation-hub/
+- name: https://gitlab.lan.stderr.at/ansible/test-collection.git
+  type: git
+  version: main
 
 # # With the collection name, version, and source options
 # - name: my_namespace.my_other_collection
