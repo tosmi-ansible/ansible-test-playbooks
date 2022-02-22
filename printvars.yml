@@ -1,6 +1,7 @@
 ---
 - name: This playbook configures hosts created with terraform
   hosts: all
+  gather_facts: no
   tasks:
     - name: Ping the host for testing
       ping:
