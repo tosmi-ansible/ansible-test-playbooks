@@ -9,7 +9,7 @@
     - name: Display encrypted variable value defined for all hosts
       debug:
         msg: "encrypted_var has a value of '{{ encrypted_var }}'"
-        when: encrypted_var is defined
+      when: encrypted_var is defined
 
     # this does not work with automationcontroller
     #
