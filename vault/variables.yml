@@ -1,1 +1,1 @@
-playbook_vault_variable: {{ vault_playbook_vault_variable }}
+playbook_vault_variable: "{{ vault_playbook_vault_variable }}"
