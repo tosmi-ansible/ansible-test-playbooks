@@ -1,5 +1,5 @@
 ---
-- name: This playbook configures hosts created with terraform
+- name: This playbook test various variable definitions
   hosts: all
   gather_facts: no
   tasks:
