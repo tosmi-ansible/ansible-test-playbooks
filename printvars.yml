@@ -9,6 +9,7 @@
     - name: Display encrypted variable value defined for all hosts
       debug:
         msg: "encrypted_var has a value of '{{ encrypted_var }}'"
+        when: encrypted_var is defined
 
     # this does not work with automationcontroller
     #
@@ -23,7 +24,9 @@
     - name: Display a group variable
       debug:
         msg: "This has a group_variable defined with the value: {{ group_variable }}"
+      when: group_variable is defined
 
     - name: Display a host variable
       debug:
         msg: "This has a host_variable defined with the value: {{ host_variable }}"
+      when: host_variable is defined
