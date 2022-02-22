@@ -5,7 +5,7 @@
     - name: Ping the host for testing
       ping:
 
-    - name: Display encrypted variable value
+    - name: Display encrypted variable value defined for all hosts
       debug:
         msg: "encrypted_var has a value of '{{ encrypted_var }}'"
 
@@ -18,3 +18,11 @@
     - name: Display host group names
       debug:
         msg: "This host is in the following groups:  {{ group_names }}"
+
+    - name: Display a group variable
+      debug:
+        msg: "This has a group_variable defined with the value: {{ group_variable }}"
+
+    - name: Display a host variable
+      debug:
+        msg: "This has a host_variable defined with the value: {{ host_variable }}"
