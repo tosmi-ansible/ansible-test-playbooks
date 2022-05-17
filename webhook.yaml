@@ -1,0 +1,8 @@
+---
+- name: Display environment variables
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Print environemnt variables
+      ansible.builtin.command: /bin/env
+      changed_when: false
