@@ -6,3 +6,23 @@
     - name: Print environemnt variables
       ansible.builtin.command: /bin/env
       changed_when: false
+
+    - name: Print tower_webhook_payload var
+      ansible.builtin.debug:
+        var: tower_webhook_payload
+
+    - name: Get branch name
+      ansible.builtin.set_fact:
+        git_branch_name: "{{ tower_webhook_payload.ref | regex_search('feature\/.*') }}"
+
+    - name: Git commit type
+      ansible.builtin.set_fact:
+        git_branch_create_event: "{{ tower_webhook_payload.before | match('^0+$') }}"
+        git_branch_delete_event: "{{ tower_webhook_payload.after | match('^0+$') }}"
+
+    - name: Print branch name
+      ansible.builtin.debug:
+        msg:
+          - "Git branch name: {{ git_branch_name }}"
+          - "Branch create event: {{ git_branch_create_event }}"
+          - "Branch delete event: {{ git_branch_delete_event }}"
