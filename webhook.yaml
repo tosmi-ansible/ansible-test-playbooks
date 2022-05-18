@@ -34,4 +34,4 @@
             scm_url: "{{ tower_webhook_payload.repository.git_http_url }}"
             scm_branch: "{{ git_branch_name }}"
       when:
-        - git_branch_create_event | bool
+        - not git_branch_delete_event | bool
