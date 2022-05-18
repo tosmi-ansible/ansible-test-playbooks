@@ -43,7 +43,7 @@
             name: "LINUX - job template for feature branch {{ git_branch_name }}"
             description: "Job template for feature branch {{ git_branch_name }}"
             organization: "Test Organization 1"
-            inventory: ""
+            inventory: "Test - Satellite via Project Source"
             project: "LINUX - feature branch {{ git_branch_name }}"
             validate_certs: false
             controller_username: "{{ controller_username }}"
