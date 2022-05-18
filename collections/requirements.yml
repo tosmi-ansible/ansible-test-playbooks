@@ -4,6 +4,10 @@ collections:
   version: 3.8.3
   source: https://console.redhat.com/api/automation-hub/
 
+- name: ansible.controller
+  version: 4.1.2
+  source: https://console.redhat.com/api/automation-hub/
+
 # # With the collection name, version, and source options
 # - name: my_namespace.my_other_collection
 #   version: 'version range identifiers (default: ``*``)'
