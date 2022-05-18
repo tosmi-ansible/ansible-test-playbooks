@@ -76,6 +76,7 @@
             ask_inventory_on_launch: "yes"
             ask_limit_on_launch: "yes"
             job_slice_count: "1"
+            state: absent
 
         - name: Delete project for feature branch {{ git_branch_name }}
           ansible.controller.project:
