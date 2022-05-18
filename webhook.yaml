@@ -1,9 +1,9 @@
 ---
-- name: Display environment variables
+- name: Create a test environment for a feature branch
   hosts: localhost
   gather_facts: false
   tasks:
-    - name: Print environemnt variables
+    - name: Print environment variables
       ansible.builtin.command: /bin/env
       changed_when: false
 
