@@ -37,11 +37,46 @@
             controller_username: "{{ controller_username }}"
             controller_password: "{{ controller_password }}"
             controller_host: "{{ controller_host }}"
+
+        - name: Create job template for feature branch {{ git_branch_name }}
+          ansible.controller.job_template:
+            name: "LINUX - job template for feature branch {{ git_branch_name }}"
+            description: "Job template for feature branch {{ git_branch_name }}"
+            organization: "Test Organization 1"
+            inventory: ""
+            project: "LINUX - feature branch {{ git_branch_name }}"
+            validate_certs: false
+            controller_username: "{{ controller_username }}"
+            controller_password: "{{ controller_password }}"
+            controller_host: "{{ controller_host }}"
+            playbook: "testplaybook.yml"
+            ask_job_type_on_launch: "yes"
+            ask_verbosity_on_launch: "yes"
+            ask_inventory_on_launch: "yes"
+            ask_limit_on_launch: "yes"
+            job_slice_count: "1"
       when:
         - not git_branch_delete_event | bool
 
     - block:
-        - name: Create a project for the feature branch
+        - name: Delete job template for the feature branch {{ git_branch_name }}
+          ansible.controller.job_template:
+            name: "LINUX - job template for feature branch {{ git_branch_name }}"
+            description: "Job template for feature branch {{ git_branch_name }}"
+            organization: "Test Organization 1"
+            inventory: ""
+            project: "LINUX - feature branch {{ git_branch_name }}"
+            validate_certs: false
+            controller_username: "{{ controller_username }}"
+            controller_password: "{{ controller_password }}"
+            controller_host: "{{ controller_host }}"
+            playbook: "testplaybook.yml"
+            ask_job_type_on_launch: "yes"
+            ask_verbosity_on_launch: "yes"
+            ask_inventory_on_launch: "yes"
+            ask_limit_on_launch: "yes"
+            job_slice_count: "1"
+        - name: Delete project for feature branch {{ git_branch_name }}
           ansible.controller.project:
             name: "LINUX - feature branch {{ git_branch_name }}"
             description: "Test environment for feature branch {{ git_branch_name }}"
