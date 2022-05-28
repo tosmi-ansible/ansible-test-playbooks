@@ -1,0 +1,41 @@
+- name: Create a workflow
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: ping
+      ping:
+
+    - name: Create a simple workflow
+      ansible.controller.workflow_job_template:
+        controller_host: "{{ controller_host }}"
+        controller_username: "{{ controller_username }}"
+        controller_password: "{{ controller_password }}"
+        validate_certs: false
+        name: Test Workflow
+        inventory: "Test - Satellite via Project Source"
+        organization: "Test Organization 1"
+        schema:
+          - identifier: "Project sync"
+            unified_job_template:
+              name: "Test - Ansible Test Inventory"
+              type: "project_update"
+              organization:
+                name: "Test Organization 1"
+            related:
+              success_nodes:
+                - identifier: "Inventory sync"
+          - identifier: "Inventory sync"
+            unified_job_template:
+              organization:
+                name: "Test Organization 1"
+              name: "Test - Ansible Test Inventory Source"
+              type: "inventory_update"
+            related:
+              success_nodes:
+                - identifier: "Execute job"
+          - identifier: "Execute job"
+            unified_job_template:
+              organization:
+                name: "Test Organization 1"
+              name: "Test - Print variables"
+              type: "job"
