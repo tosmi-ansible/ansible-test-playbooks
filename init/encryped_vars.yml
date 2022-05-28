@@ -1,0 +1,27 @@
+---
+- name: init - load encrypted vars
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: ensure vault can be decrypted
+      check_mode: yes  # do not actually copy
+      run_once: true
+      local_action:
+        module: copy
+        src: ../vault//vault.yml
+        dest: /tmp/vault.yml
+      ignore_errors: yes
+      register: vault_check
+
+    - name: fail if vault cannot be decrypted
+      fail:
+        msg: "You requested to load encrypted vars, but forgot to specify the '--vault-id @prompt' option"
+      run_once: yes
+      when: vault_check.failed
+
+    - name: include all variables defined in the vault directory
+      include_vars:
+        dir: ../vault/
+        extenstions:
+          - 'yaml'
+          - 'yml'

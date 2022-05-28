@@ -1,18 +1,44 @@
 ---
-- name: This playbook configures hosts created with terraform
-  hosts: localhost
+- name: This playbook test various variable definitions
+  hosts: all
+  gather_facts: no
   tasks:
+    - name: Include vault variables
+      include_vars:
+        dir: vault
+        extensions:
+          - 'yaml'
+          - 'yml'
+
     - name: Ping the host for testing
       ping:
 
-    - name: Display encrypted variable value
+    - name: Display encrypted variable value defined for all hosts in the inventory
       debug:
         msg: "encrypted_var has a value of '{{ encrypted_var }}'"
+      when: encrypted_var is defined
 
-    - name: Display vault_encrypted variable value
+    - name: Display encrypted variable value defined in this playbook repository (vault/)
       debug:
-        msg: "encrypted_var has a value of '{{ encrypted_vault_var }}'"
+        msg: "playbook_vault_variable: {{ playbook_vault_variable }}"
+      when: playbook_vault_variable is defined
+
+    # this does not work with automationcontroller
+    #
+    # - name: Display vault_encrypted variable value
+    #   debug:
+    #     msg: "encrypted_var has a value of '{{ encrypted_vault_var }}'"
 
     - name: Display host group names
       debug:
         msg: "This host is in the following groups:  {{ group_names }}"
+
+    - name: Display a group variable
+      debug:
+        msg: "This has a group_variable defined with the value: {{ group_variable }}"
+      when: group_variable is defined
+
+    - name: Display a host variable
+      debug:
+        msg: "This has a host_variable defined with the value: {{ host_variable }}"
+      when: host_variable is defined

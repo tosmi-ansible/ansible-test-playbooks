@@ -1,0 +1,4 @@
+- hosts: localhost
+  roles:
+  - role: printvar
+  - role: tnt.test.printvar

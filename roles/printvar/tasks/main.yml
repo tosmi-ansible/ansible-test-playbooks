@@ -1,0 +1,5 @@
+---
+# tasks file for printvar
+- name: Print a message
+  debug:
+    msg: "This is a test message"

@@ -1,0 +1,95 @@
+---
+- name: Create a test environment for a feature branch
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Print environment variables
+      ansible.builtin.command: /bin/env
+      changed_when: false
+
+    - name: Print tower_webhook_payload var
+      ansible.builtin.debug:
+        var: tower_webhook_payload
+
+    - name: Git commit type
+      ansible.builtin.set_fact:
+        git_branch_name: "{{ tower_webhook_payload.ref | regex_search('feature\\/.*') }}"
+        git_branch_create_event: "{{ tower_webhook_payload.before is regex('^0+$') }}"
+        git_branch_delete_event: "{{ tower_webhook_payload.after is regex('^0+$') }}"
+
+    - name: Print branch name
+      ansible.builtin.debug:
+        msg:
+          - "Git branch name: {{ git_branch_name }}"
+          - "Branch create event: {{ git_branch_create_event }}"
+          - "Branch delete event: {{ git_branch_delete_event }}"
+
+    - block:
+        - name: Create a project for the feature branch
+          ansible.controller.project:
+            name: "LINUX - feature branch {{ git_branch_name }}"
+            description: "Test environment for feature branch {{ git_branch_name }}"
+            organization: "Test Organization 1"
+            scm_type: git
+            scm_url: "{{ tower_webhook_payload.repository.git_http_url }}"
+            scm_branch: "{{ git_branch_name }}"
+            validate_certs: false
+            controller_username: "{{ controller_username }}"
+            controller_password: "{{ controller_password }}"
+            controller_host: "{{ controller_host }}"
+
+        - name: Create job template for feature branch {{ git_branch_name }}
+          ansible.controller.job_template:
+            name: "LINUX - job template for feature branch {{ git_branch_name }}"
+            description: "Job template for feature branch {{ git_branch_name }}"
+            organization: "Test Organization 1"
+            inventory: "Test - Satellite via Project Source"
+            project: "LINUX - feature branch {{ git_branch_name }}"
+            validate_certs: false
+            controller_username: "{{ controller_username }}"
+            controller_password: "{{ controller_password }}"
+            controller_host: "{{ controller_host }}"
+            playbook: "testplaybook.yml"
+            ask_job_type_on_launch: "yes"
+            ask_verbosity_on_launch: "yes"
+            ask_inventory_on_launch: "yes"
+            ask_limit_on_launch: "yes"
+            job_slice_count: "1"
+      when:
+        - not git_branch_delete_event | bool
+
+    - block:
+        - name: Delete job template for the feature branch {{ git_branch_name }}
+          ansible.controller.job_template:
+            name: "LINUX - job template for feature branch {{ git_branch_name }}"
+            description: "Job template for feature branch {{ git_branch_name }}"
+            organization: "Test Organization 1"
+            inventory: "Test - Satellite via Project Source"
+            project: "LINUX - feature branch {{ git_branch_name }}"
+            validate_certs: false
+            controller_username: "{{ controller_username }}"
+            controller_password: "{{ controller_password }}"
+            controller_host: "{{ controller_host }}"
+            playbook: "testplaybook.yml"
+            ask_job_type_on_launch: "yes"
+            ask_verbosity_on_launch: "yes"
+            ask_inventory_on_launch: "yes"
+            ask_limit_on_launch: "yes"
+            job_slice_count: "1"
+            state: absent
+
+        - name: Delete project for feature branch {{ git_branch_name }}
+          ansible.controller.project:
+            name: "LINUX - feature branch {{ git_branch_name }}"
+            description: "Test environment for feature branch {{ git_branch_name }}"
+            organization: "Test Organization 1"
+            scm_type: git
+            scm_url: "{{ tower_webhook_payload.repository.git_http_url }}"
+            scm_branch: "{{ git_branch_name }}"
+            validate_certs: false
+            controller_username: "{{ controller_username }}"
+            controller_password: "{{ controller_password }}"
+            controller_host: "{{ controller_host }}"
+            state: absent
+      when:
+        - git_branch_delete_event | bool
